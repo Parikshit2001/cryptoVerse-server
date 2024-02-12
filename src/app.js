@@ -4,17 +4,34 @@ import cookieParser from 'cookie-parser';
 
 const app = express();
 
-const allowedOrigins = ['http://localhost:5173']
+const allowedOrigins = ['http://localhost:5173', 'https://crypto-verse-client.vercel.app', '*']
 
 app.use(express.json())
 app.use(cors({
-    // origin: `${process.env.CLIENT_URL}`,
-    // origin:allowedOrigins,
-    origin: '*',
+    origin:allowedOrigins,
     credentials: true,
   }));
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser())
+
+app.post('/', (req, res) => {
+  const {email, username, password} = req.body;
+  console.log(req.body);
+    
+  const options = {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'None'
+  }
+
+  return res
+      .status(200)
+      .cookie('accessToken', 'accessToken', options)
+      .cookie('refreshToken', 'refreshToken', options)
+      .json({
+        message: "Okay"
+      })
+})
 
 // import routes
 import userRouter from './routes/user.routes.js';
