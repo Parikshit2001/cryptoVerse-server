@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addToWatchList, getWatchList, loginUser, logoutUser, registerUser, removeFromWatchList } from "../controllers/user.controllers.js";
+import { addToWatchList, getWatchList, healthy, loginUser, logoutUser, registerUser, removeFromWatchList } from "../controllers/user.controllers.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const router = Router();
@@ -10,6 +10,6 @@ router.route('/logout').post(verifyJWT, logoutUser)
 router.route('/add-to-watchlist').post(verifyJWT, addToWatchList);
 router.route('/remove-from-watchlist').post(verifyJWT, removeFromWatchList);
 router.route('/watchlist').get(verifyJWT, getWatchList);
-
+router.route('/loginstatus').get(verifyJWT, healthy);
 
 export default router

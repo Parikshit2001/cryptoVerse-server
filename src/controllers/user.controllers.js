@@ -182,6 +182,15 @@ const getWatchList = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {watchList}, "Retrieved Watchlist successfully"))
 })
 
+const healthy = (req, res) => {
+    console.log("HI")
+    return res
+    .status(200)
+    .json({
+        message: "success"
+    })
+}
+
 
 export {
     registerUser,
@@ -189,5 +198,6 @@ export {
     logoutUser,
     addToWatchList,
     removeFromWatchList,
-    getWatchList
+    getWatchList,
+    healthy
 }
